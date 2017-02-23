@@ -1,4 +1,4 @@
 # ric-rac-roe
-[![Build Status](https://travis-ci.org/mvlabat/forgera_ruby.svg?branch=master)](https://travis-ci.org/mvlabat/forgera_ruby)
+[![Build Status](https://travis-ci.org/mvlabat/ric-rac-roe.svg?branch=master)](https://travis-ci.org/mvlabat/ric-rac-roe)
 
 Tic-tac-toe game written in Rust
