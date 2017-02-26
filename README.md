@@ -11,7 +11,7 @@ cargo run
 # Some info
 There are three player modes to choose from:
 - Human
-- Perfect AI *(this AI just never looses and never wastes possibility to win)*
+- Perfect AI *(this AI just never loses and never wastes possibility to win)*
 - Ultimate AI *(this AI finds the shortest way to beat you or survives for the longest time)*
 
 # Screenshots
