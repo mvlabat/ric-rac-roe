@@ -19,7 +19,7 @@ fn console_player(game: &Game) -> Option<Coords> {
 }
 
 fn print_game_field(field: &Field) {
-    println!("{}", draw_field::draw_field::draw(&field));
+    println!("{}", draw_field::draw(&field));
 }
 
 fn prompt(game: &Game) -> Option<Coords> {
