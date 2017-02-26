@@ -51,7 +51,7 @@ impl Game {
                 _ => { self.switch_player(); return self.current_player },
             };
 
-            match self.winner() {
+            match Self::winner(&self.field) {
                 Some(winner) => return winner,
                 _ => self.switch_player(),
             }
@@ -80,20 +80,20 @@ impl Game {
     }
 
     /// Returns `Player` if it is already defined, otherwise `None`.
-    fn winner(&self) -> Option<Player> {
-        self.row_winner(self.row(0))
-            .or( self.row_winner(self.row(1)) )
-            .or( self.row_winner(self.row(2)) )
-            .or( self.row_winner(self.col(0)) )
-            .or( self.row_winner(self.col(1)) )
-            .or( self.row_winner(self.col(2)) )
-            .or( self.row_winner(self.diagonal()) )
-            .or( self.row_winner(self.reverse_diagonal()) )
-            .or( if self.has_empty_cell() { None } else { Some(Player::Nobody) } )
+    pub fn winner(field: &Field) -> Option<Player> {
+        Self::row_winner(Self::row(&field, 0))
+            .or( Self::row_winner(Self::row(&field, 1)) )
+            .or( Self::row_winner(Self::row(&field, 2)) )
+            .or( Self::row_winner(Self::col(&field, 0)) )
+            .or( Self::row_winner(Self::col(&field, 1)) )
+            .or( Self::row_winner(Self::col(&field, 2)) )
+            .or( Self::row_winner(Self::diagonal(&field)) )
+            .or( Self::row_winner(Self::reverse_diagonal(&field)) )
+            .or( if Self::has_empty_cell(&field) { None } else { Some(Player::Nobody) } )
     }
 
-    fn has_empty_cell(&self) -> bool {
-        for row in &self.field {
+    fn has_empty_cell(field: &Field) -> bool {
+        for row in field {
             for col in row {
                 if *col == Player::Nobody {
                     return true;
@@ -104,7 +104,7 @@ impl Game {
     }
 
     /// Returns `Player` if it is already defined, otherwise `None`.
-    fn row_winner(&self, row: Vec<Player>) -> Option<Player> {
+    fn row_winner(row: Vec<Player>) -> Option<Player> {
         if row[0] != Player::Nobody && row[0] == row[1] && row[1] == row[2] {
             Some(row[0])
         } else {
@@ -112,20 +112,20 @@ impl Game {
         }
     }
 
-    fn row(&self, number: usize) -> Vec<Player> {
-        self.field[number].to_vec()
+    fn row(field: &Field, number: usize) -> Vec<Player> {
+        field[number].to_vec()
     }
 
-    fn col(&self, number: usize) -> Vec<Player> {
-        self.field.iter().map(|row| row[number]).collect()
+    fn col(field: &Field, number: usize) -> Vec<Player> {
+        field.iter().map(|row| row[number]).collect()
     }
 
-    fn diagonal(&self) -> Vec<Player> {
-        self.field.iter().enumerate().map(|(i, row)| row[0 + i]).collect()
+    fn diagonal(field: &Field) -> Vec<Player> {
+        field.iter().enumerate().map(|(i, row)| row[0 + i]).collect()
     }
 
-    fn reverse_diagonal(&self) -> Vec<Player> {
-        self.field.iter().enumerate().map(|(i, row)| row[2 - i]).collect()
+    fn reverse_diagonal(field: &Field) -> Vec<Player> {
+        field.iter().enumerate().map(|(i, row)| row[2 - i]).collect()
     }
 
 }
