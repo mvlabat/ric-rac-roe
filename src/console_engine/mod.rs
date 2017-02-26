@@ -20,9 +20,10 @@ pub fn run() {
 fn play(first_player: PlayerController, second_player: PlayerController) {
     let mut game: Game = Game::new(first_player, second_player);
     match game.play() {
-        Player::Nobody => println!("Well, that's a draw. ¯\\_(ツ)_/¯"),
-        winner @ _ => println!("Player {0} wins! (ツ)_/\\_({0})", player_to_str(winner)),
+        Player::Nobody => println!("\nWell, that's a draw. ¯\\_(ツ)_/¯"),
+        winner @ _ => println!("\nPlayer {0} wins! (ツ)_/\\_({0})", player_to_str(winner)),
     }
+    println!("");
     print_game_field(&game.field());
 }
 
@@ -72,8 +73,8 @@ fn choose_player() -> Option<PlayerController> {
 
         match parse_key(text) {
             Ok(1) => return Some(console_player::player_controller),
-            Ok(2) => return Some(::ai::perfect::player_controller),
-            Ok(3) => return Some(::ai::ultimate::player_controller),
+            Ok(2) => return Some(visualized_perfect_ai),
+            Ok(3) => return Some(visualized_ultimate_ai),
             Err(error) => print!("Error: {}\nRepeat: ", error),
             _ => panic!("unexpected key {}", text),
         }
@@ -94,4 +95,22 @@ fn parse_error() -> String {
 
 fn show_error<T: Error>(err: T) -> String {
     err.description().to_string()
+}
+
+fn visualized_perfect_ai(game: &Game) -> Option<Coords> {
+    println!("");
+    print_game_field(&game.field());
+    let (row, col) = ::ai::perfect::player_controller(&game).unwrap();
+    println!("Player {0} controlled by Perfect AI chooses ({1}, {2})",
+             player_to_str(game.current_player()), row, col);
+    Some((row, col))
+}
+
+fn visualized_ultimate_ai(game: &Game) -> Option<Coords> {
+    println!("");
+    print_game_field(&game.field());
+    let (row, col) = ::ai::ultimate::player_controller(&game).unwrap();
+    println!("Player {0} controlled by Ultimate AI chooses ({1}, {2})",
+             player_to_str(game.current_player()), row, col);
+    Some((row, col))
 }
