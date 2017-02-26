@@ -12,7 +12,7 @@ pub fn player_controller(game: &Game) -> Option<Coords> {
 fn prompt(game: &Game) -> Option<Coords> {
     loop {
         print!(
-            "\nPlayer {}, enter row and column (1..3) separated with whitespace (or print 's' to surrender): ",
+            "Player {}, enter row and column (1..3) separated with whitespace (or print 's' to surrender): ",
             player_to_str(game.current_player()));
         io::Write::flush(&mut io::stdout()).unwrap();
 
