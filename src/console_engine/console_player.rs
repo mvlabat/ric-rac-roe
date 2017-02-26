@@ -12,13 +12,13 @@ pub fn player_controller(game: &Game) -> Option<Coords> {
 fn prompt(game: &Game) -> Option<Coords> {
     loop {
         print!(
-            "\nPlayer {}, enter column and row (1..3) separated with whitespace (or print 's' to surrender): ",
+            "\nPlayer {}, enter row and column (1..3) separated with whitespace (or print 's' to surrender): ",
             player_to_str(game.current_player()));
         io::Write::flush(&mut io::stdout()).unwrap();
 
         match read_coords() {
             Ok(Some(coords)) if game.cell_is_empty(coords) => return Some(coords),
-            Ok(Some(_)) => println!("Error: you really should not take another's player cell!"),
+            Ok(Some(_)) => println!("Error: you really should not take another player's cell!"),
             Ok(None) => return None,
             Err(error) => println!("Error: {}", error)
         }
