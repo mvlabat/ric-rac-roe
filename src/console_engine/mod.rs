@@ -102,7 +102,7 @@ fn visualized_perfect_ai(game: &Game) -> Option<Coords> {
     print_game_field(&game.field());
     let (row, col) = ::ai::perfect::player_controller(&game).unwrap();
     println!("Player {0} controlled by Perfect AI chooses ({1}, {2})",
-             player_to_str(game.current_player()), row, col);
+             player_to_str(game.current_player()), row + 1, col + 1);
     Some((row, col))
 }
 
@@ -111,6 +111,6 @@ fn visualized_ultimate_ai(game: &Game) -> Option<Coords> {
     print_game_field(&game.field());
     let (row, col) = ::ai::ultimate::player_controller(&game).unwrap();
     println!("Player {0} controlled by Ultimate AI chooses ({1}, {2})",
-             player_to_str(game.current_player()), row, col);
+             player_to_str(game.current_player()), row + 1, col + 1);
     Some((row, col))
 }
